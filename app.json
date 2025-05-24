@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "expenseControl",
+    "name": "Controle de gastos",
     "slug": "expenseControl",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/mainIcon.jpg",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/splashIcon.jpg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,12 +17,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/mainIcon.jpg",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.davi_ribeiro.expenseControl"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ed29f967-6df9-4d4f-a74a-d48b9b8a7b1e"
+      }
     }
   }
 }
