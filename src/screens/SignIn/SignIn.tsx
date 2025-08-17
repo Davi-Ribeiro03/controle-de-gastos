@@ -28,7 +28,7 @@ const SignIn = () => {
 
   useEffect(() => {
     setSearchingUser(true);
-    findUser();
+    // findUser();
     setSearchingUser(false);
   }, []);
 

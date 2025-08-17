@@ -18,7 +18,7 @@ const TransactionTypeSelector = ({
         <Text
           style={
             type === "entry"
-              ? styles.transactionTypeSelected
+              ? styles.entrySelected
               : styles.transactionType
           }
         >
@@ -30,7 +30,7 @@ const TransactionTypeSelector = ({
         <Text
           style={
             type === "expense"
-              ? styles.transactionTypeSelected
+              ? styles.expenseSelected
               : styles.transactionType
           }
         >

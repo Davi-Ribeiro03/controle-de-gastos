@@ -6,6 +6,7 @@ import {
   Pressable,
   TouchableWithoutFeedback,
   Keyboard,
+  ScrollView,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
@@ -78,36 +79,42 @@ const AddTransaction = () => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    // <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
       <SafeAreaView style={styles.container}>
         {!isKeyboardVisible && <Header />}
-
+        {/* <Header/> */}
         <MainContent title="Adicionar Receitas/Despesas">
+        <ScrollView showsVerticalScrollIndicator={false}>
+
           <TransactionTypeSelector type={type} setType={setType} />
 
-          <Input label="Título" act={setTitle} value={title} />
+          <Input label="Título" placeholder="Digite o titulo da transação" act={setTitle} value={title} />
           <Input
             label="Valor"
             keyBoardType="numeric"
             act={setValue}
             mask={Masks.BRL_CURRENCY}
             value={value}
+            placeholder="R$ 0,00"
           />
           {/* {type === "expense" && (
             <Input label="Categoria" act={setCategory} value={category} />
           )} */}
-          <Input label="Descrição" act={setDescription} value={description} />
+          <Input label="Descrição" placeholder="Digite uma descrição" act={setDescription} value={description} />
           <Input
             label="Data"
             act={setDate}
             value={date}
             mask={Masks.DATE_DDMMYYYY}
+            placeholder="DD/MM/AAAA"
           />
 
-          <Button label="Adicionar" act={handleAddTransaction} />
+          <Button label="Adicionar" act={handleAddTransaction} color={type === 'entry' ? "green" : "red"} />
+        </ScrollView>
+
         </MainContent>
       </SafeAreaView>
-    </TouchableWithoutFeedback>
+    // </TouchableWithoutFeedback>
   );
 };
 

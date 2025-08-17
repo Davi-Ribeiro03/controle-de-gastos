@@ -23,10 +23,14 @@ const Transactions = ({ transactions }: { transactions: ITransaction[] }) => {
     );
   }
 
+  const removeTransaction = () => {
+    alert('Deseja remover essa transação?')
+  }
+
   return (
     <FlatList
       data={transactions}
-      renderItem={renderTransactions}
+      renderItem={({item}) => renderTransactions(item, removeTransaction)}
       initialNumToRender={3}
     />
   );

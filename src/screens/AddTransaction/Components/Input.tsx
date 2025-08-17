@@ -9,12 +9,13 @@ interface InputProps {
   act: React.Dispatch<React.SetStateAction<string>>;
   mask?: Mask;
   value: string;
+  placeholder?: string,
 }
 
-const Input = ({ label, keyBoardType, act, mask, value }: InputProps) => {
+const Input = ({ label, keyBoardType, act, mask, value, placeholder }: InputProps) => {
   return (
     <View style={styles.inputContainer}>
-      <Text style={{ fontSize: 18, fontWeight: "bold" }}>{label}:</Text>
+      <Text style={{ fontSize: 18, fontWeight: "bold" }}>{label}</Text>
       <MaskInput
         style={styles.inputValue}
         keyboardType={keyBoardType || "default"}
@@ -23,6 +24,8 @@ const Input = ({ label, keyBoardType, act, mask, value }: InputProps) => {
         }}
         mask={mask}
         value={value}
+        placeholder={placeholder}
+        
       />
       {/* <TextInput
         style

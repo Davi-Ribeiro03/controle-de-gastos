@@ -23,7 +23,7 @@ interface IUserState {
     email: string,
     password: string
   ) => Promise<string | null | undefined>;
-  findUser: () => void;
+  findUser: () => Promise<IUserAuth>;
   logout: () => void;
 }
 
@@ -72,7 +72,7 @@ export const useUserStore = create<IUserState>()((set) => ({
   findUser: async () => {
     const user = await getUser();
 
-    set({ userAuth: user });
+    return user
   },
   logout: async () => {
     Alert.alert("Sair", "Deseja realmente sair?", [

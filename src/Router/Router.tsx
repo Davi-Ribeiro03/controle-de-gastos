@@ -7,12 +7,14 @@ import { StatusBar } from "react-native";
 import { colors } from "../Constants";
 
 export default function Router() {
-  const userAuth = useUserStore((state) => state.userAuth);
+  const findUser = useUserStore((state) => state.findUser);
+  const user = findUser()
+
 
   return (
     <NavigationContainer>
       <StatusBar backgroundColor={colors.primary} barStyle="light-content" />
-      {!!userAuth ? <AuthenticatedUserRouter /> : <LoginRouter />}
+      {!!user ? <AuthenticatedUserRouter /> : <LoginRouter />}
     </NavigationContainer>
   );
 }
