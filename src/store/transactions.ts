@@ -11,7 +11,7 @@ interface ITransactionsState {
   totalExpenses: number;
   balance: number;
   addTransaction: (transaction: ITransaction) => void;
-  removeTransaction?: (id: string) => void;
+  removeTransaction: (id: string) => void;
   findTransactions: () => void;
   removeAllTransactions: () => void;
 }

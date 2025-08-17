@@ -4,10 +4,10 @@ import { styles } from "../styles";
 import { ITransaction } from "../../../interfaces/ITransactions";
 import { formatNumberIntoValue } from "../../../Services/formatNumberIntoValue";
 
-export const renderTransactions = ({ item,removeTransaction }: { item: ITransaction , removeTransaction:Function }) => {
+export const renderTransactions = ({ item }: { item: ITransaction }) => {
   
   return (
-  <TouchableWithoutFeedback onLongPress={removeTransaction}>
+  // <TouchableWithoutFeedback>
     <View style={styles.container}>
       <View style={styles.description}>
         <View style={styles.titleAndcategory}>
@@ -27,5 +27,5 @@ export const renderTransactions = ({ item,removeTransaction }: { item: ITransact
       </View>
       <View style={styles.divisionLine} />
     </View>
-  </TouchableWithoutFeedback>
+  // </TouchableWithoutFeedback>
 )};

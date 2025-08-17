@@ -1,4 +1,4 @@
-import { View, Text, FlatList, ScrollView, Pressable } from "react-native";
+import { View, Text, FlatList, ScrollView, Pressable, Alert } from "react-native";
 import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { styles } from "./styles";
@@ -17,16 +17,27 @@ const AllTransactions = () => {
   );
   const transactionsIsEmpty = transactions.length === 0;
 
+  const handleRemoveTransactions = () => {
+    Alert.alert(
+      'Remover transações',
+      'Você deseja remover todas as transações?',
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        { text: 'Remover', onPress: removeAllTransactions },
+      ]
+    )
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <Header />
       <MainContent title="Todas as movimentações">
-        <TransactionTypeSelector type={type} setType={setType} />
+        {/* <TransactionTypeSelector type={type} setType={setType} /> */}
 
         <Transactions transactions={transactions.reverse()} />
 
         {!transactionsIsEmpty && (
-          <Button label="Remover tudo" act={removeAllTransactions} />
+          <Button label="Remover tudo" act={handleRemoveTransactions} />
         )}
       </MainContent>
     </SafeAreaView>

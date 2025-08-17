@@ -1,10 +1,4 @@
 import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Pressable,
-  TouchableWithoutFeedback,
   Keyboard,
   ScrollView,
 } from "react-native";
