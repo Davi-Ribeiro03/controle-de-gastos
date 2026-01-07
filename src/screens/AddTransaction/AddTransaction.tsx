@@ -1,7 +1,4 @@
-import {
-  Keyboard,
-  ScrollView,
-} from "react-native";
+import { Keyboard, Pressable, ScrollView, Text } from "react-native";
 import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/Header";
 import { styles } from "./styles";
@@ -53,6 +50,15 @@ const AddTransaction = () => {
     );
   }
 
+  function setTodayDate() {
+    let [month, day, year] = new Date().toLocaleDateString().split("/");
+
+    day = day.length < 2 ? "0" + day : day;
+    month = month.length < 2 ? "0" + month : month;
+
+    setDate([day, month, year].join("/"));
+  }
+
   const handleAddTransaction = () => {
     if (title === "" || value === "" || date === "") {
       alert("Você deve preencher o título, valor e data ");
@@ -74,15 +80,19 @@ const AddTransaction = () => {
 
   return (
     // <TouchableWithoutFeedback onPress={() => {Keyboard.dismiss()}}>
-      <SafeAreaView style={styles.container}>
-        {!isKeyboardVisible && <Header />}
-        {/* <Header/> */}
-        <MainContent title="Adicionar Receitas/Despesas">
+    <SafeAreaView style={styles.container}>
+      {!isKeyboardVisible && <Header />}
+      {/* <Header/> */}
+      <MainContent title="Adicionar Receitas/Despesas">
         <ScrollView showsVerticalScrollIndicator={false}>
-
           <TransactionTypeSelector type={type} setType={setType} />
 
-          <Input label="Título" placeholder="Digite o titulo da transação" act={setTitle} value={title} />
+          <Input
+            label="Título"
+            placeholder="Digite o titulo da transação"
+            act={setTitle}
+            value={title}
+          />
           <Input
             label="Valor"
             keyBoardType="numeric"
@@ -94,7 +104,12 @@ const AddTransaction = () => {
           {/* {type === "expense" && (
             <Input label="Categoria" act={setCategory} value={category} />
           )} */}
-          <Input label="Descrição" placeholder="Digite uma descrição" act={setDescription} value={description} />
+          <Input
+            label="Descrição"
+            placeholder="Digite uma descrição"
+            act={setDescription}
+            value={description}
+          />
           <Input
             label="Data"
             act={setDate}
@@ -103,11 +118,20 @@ const AddTransaction = () => {
             placeholder="DD/MM/AAAA"
           />
 
-          <Button label="Adicionar" act={handleAddTransaction} color={type === 'entry' ? "green" : "red"} />
-        </ScrollView>
+          <Pressable onPress={setTodayDate}>
+            <Text style={{ color: "blue", textDecorationLine: "underline" }}>
+              Data de hoje
+            </Text>
+          </Pressable>
 
-        </MainContent>
-      </SafeAreaView>
+          <Button
+            label="Adicionar"
+            act={handleAddTransaction}
+            color={type === "entry" ? "green" : "red"}
+          />
+        </ScrollView>
+      </MainContent>
+    </SafeAreaView>
     // </TouchableWithoutFeedback>
   );
 };
