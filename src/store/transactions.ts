@@ -2,21 +2,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 import { saveTransaction } from "../Services/saveTransaction";
 import { getTransactions } from "../Services/getTransactions";
-import { ITransaction } from "../interfaces/ITransactions";
 import { calculateTotal } from "../Services/calculateTotal";
+import { ITransactionsStore } from "../interfaces/ITransactionStore";
 
-interface ITransactionsState {
-  transactions: ITransaction[];
-  totalEntry: number;
-  totalExpenses: number;
-  balance: number;
-  addTransaction: (transaction: ITransaction) => void;
-  removeTransaction: (id: string) => void;
-  findTransactions: () => void;
-  removeAllTransactions: () => void;
-}
 
-export const useTransactionStore = create<ITransactionsState>()((set, get) => ({
+
+export const useTransactionStore = create<ITransactionsStore>()((set, get) => ({
   transactions: [],
   totalEntry: 0,
   totalExpenses: 0,
