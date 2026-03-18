@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import LoginRouter from "./LoginRouter";
 import AuthenticatedUserRouter from "./AuthenticatedUserRouter";
 import { NavigationContainer } from "@react-navigation/native";
@@ -7,14 +7,16 @@ import { StatusBar } from "react-native";
 import { colors } from "../Constants";
 
 export default function Router() {
-  const findUser = useUserStore((state) => state.findUser);
-  const user = findUser()
+  const { userAuth, findUser } = useUserStore((state) => state);
 
+  useEffect(() => {
+    findUser();
+  }, []);
 
   return (
     <NavigationContainer>
       <StatusBar backgroundColor={colors.primary} barStyle="light-content" />
-      {!!user ? <AuthenticatedUserRouter /> : <LoginRouter />}
+      {!!userAuth ? <AuthenticatedUserRouter /> : <LoginRouter />}
     </NavigationContainer>
   );
 }

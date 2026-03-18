@@ -9,70 +9,60 @@ import { saveUser } from "../Services/saveUser";
 import { getUser } from "../Services/getUser";
 import { deleteUserSession } from "../Services/deleteUserSession";
 import { Alert } from "react-native";
+import api from "../api";
 
 interface IUserAuth {
   name: string;
   email: string;
 }
 
+interface IResponse {
+  success: boolean;
+  message: string;
+  data: any;
+}
+
 interface IUserState {
   userAuth?: IUserAuth;
   signIn: (email: string, password: string) => void;
-  signUp: (
-    name: string,
-    email: string,
-    password: string
-  ) => Promise<string | null | undefined>;
-  findUser: () => Promise<IUserAuth>;
+  signUp: (name: string, email: string, password: string) => void;
+  findUser: () => void;
   logout: () => void;
 }
 
 export const useUserStore = create<IUserState>()((set) => ({
   userAuth: undefined,
-  signIn: (email, password) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then(async (res) => {
-        const user = {
-          name: res.user.displayName ?? "",
-          email: res.user.email ?? "",
-        };
-
-        await saveUser(user);
-        set({ userAuth: user });
-      })
-      .catch((error) => {
-        // console.log(error);
-
-        alert("Email ou senha incorretos");
+  signIn: async (email, password) => {
+    try {
+      const response: IResponse = await api.post("/auth/login", {
+        email,
+        password,
       });
+      Alert.alert("Sucesso", response?.message);
+      await saveUser(response?.data);
+      set({ userAuth: response?.data });
+    } catch (error) {
+      Alert.alert("Erro", "Falha ao fazer login. Verifique suas credenciais.");
+    }
   },
   signUp: async (name, email, password) => {
     try {
-      const userCreated = await createUserWithEmailAndPassword(
-        auth,
+      const response: IResponse = await api.post("/auth/register", {
+        name,
         email,
-        password
-      );
-      alert("Criado com sucesso");
-      await updateProfile(userCreated?.user, {
-        displayName: name,
+        password,
       });
-
-      return userCreated?.user?.email;
+      Alert.alert("Sucesso", response?.message);
+      await saveUser(response?.data);
+      set({ userAuth: response?.data });
     } catch (error: any) {
       console.log(error.message);
-      if (error.message === "Firebase: Error (auth/email-already-in-use).") {
-        alert("Email já cadastrado");
-      }
-      if (error.message === "Firebase: Error (auth/invalid-email).") {
-        alert("O email digitado não é válido");
-      }
+      Alert.alert("Erro", "Falha ao fazer login. Verifique suas credenciais.");
     }
   },
   findUser: async () => {
     const user = await getUser();
-
-    return user
+    set({ userAuth: user });
   },
   logout: async () => {
     Alert.alert("Sair", "Deseja realmente sair?", [

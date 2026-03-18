@@ -9,14 +9,14 @@ import { TransactionType } from "../../interfaces/ITransactions";
 const Header = () => {
   const { userAuth, logout } = useUserStore((store) => store);
   const { totalEntry, totalExpenses, balance } = useTransactionStore(
-    (store) => store
+    (store) => store,
   );
 
   return (
     <View style={styles.container}>
       <View style={styles.logoutButton}>
         <Text style={styles.headerTitle}>
-          Bem vindo{"(a)"} {userAuth?.name.split(" ")[0]}!
+          Bem vindo{"(a)"} {userAuth?.name?.split(" ")[0]}!
         </Text>
 
         <Pressable onPress={logout}>

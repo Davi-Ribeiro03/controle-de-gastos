@@ -32,9 +32,7 @@ const SignUp = () => {
       alert("A senha deve ter no mínimo 6 caracteres");
     }
 
-    signUp(name, email, password).then((res) => {
-      if (res) navigation.navigate("SignIn");
-    });
+    signUp(name, email, password);
   };
 
   return (
