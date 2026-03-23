@@ -4,8 +4,7 @@ import { saveTransaction } from "../Services/saveTransaction";
 import { getTransactions } from "../Services/getTransactions";
 import { calculateTotal } from "../Services/calculateTotal";
 import { ITransactionsStore } from "../interfaces/ITransactionStore";
-
-
+import api from "../api";
 
 export const useTransactionStore = create<ITransactionsStore>()((set, get) => ({
   transactions: [],
@@ -34,18 +33,20 @@ export const useTransactionStore = create<ITransactionsStore>()((set, get) => ({
     });
   },
   findTransactions: async () => {
-    const transactions = await getTransactions();
+    const month = new Date().getMonth() + 1;
+    const year = new Date().getFullYear();
+    const date = "2026-02-01";
+    const { data: res } = await api.get(
+      // "/transaction" + `?monthReference=${year}/0${month}/01`,
+      "/transaction" + `?monthReference=${date}`,
+    );
 
     set(() => {
-      const totalEntry = calculateTotal(transactions, "entry");
-
-      const totalExpenses = calculateTotal(transactions, "expense");
-
       return {
-        transactions,
-        totalEntry,
-        totalExpenses,
-        balance: totalEntry - totalExpenses,
+        transactions: res?.data?.transactions || [],
+        totalEntry: res?.data?.totalEntry || 0,
+        totalExpenses: res?.data?.totalExpense || 0,
+        balance: res?.data?.balance || 0,
       };
     });
   },
