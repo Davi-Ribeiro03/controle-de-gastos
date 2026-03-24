@@ -1,10 +1,9 @@
-import { View, Text, ScrollView, Keyboard, Pressable } from "react-native";
-import React, { useEffect, useState } from "react";
+import { View, Text, ScrollView, Pressable } from "react-native";
+import React from "react";
 import { styles } from "./styles";
 import Balance from "./components/Balance";
 import { useUserStore } from "../../store/user";
 import { useTransactionStore } from "../../store/transactions";
-import { TransactionType } from "../../interfaces/ITransactions";
 
 const Header = () => {
   const { userAuth, logout } = useUserStore((store) => store);

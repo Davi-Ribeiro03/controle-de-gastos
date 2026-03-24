@@ -2,7 +2,7 @@ import { View, Text } from "react-native";
 import React from "react";
 import { styles } from "../styles";
 import { LinearGradient } from "expo-linear-gradient";
-import { formatNumberIntoValue } from "../../../Services/formatNumberIntoValue";
+import { formatNumberIntoValue } from "../../../utils/formatNumberIntoValue";
 
 type BalanceProps = {
   title: string;

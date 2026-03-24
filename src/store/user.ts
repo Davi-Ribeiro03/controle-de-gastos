@@ -1,13 +1,7 @@
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
 import { create } from "zustand";
-import { auth } from "../Services/firebaseConnection";
-import { saveUser } from "../Services/saveUser";
-import { getUser } from "../Services/getUser";
-import { deleteUserSession } from "../Services/deleteUserSession";
+import { saveUser } from "../utils/saveUser";
+import { getUser } from "../utils/getUser";
+import { deleteUserSession } from "../utils/deleteUserSession";
 import { Alert } from "react-native";
 import api from "../api";
 

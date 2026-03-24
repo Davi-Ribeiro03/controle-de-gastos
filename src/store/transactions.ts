@@ -1,8 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
-import { saveTransaction } from "../Services/saveTransaction";
-import { getTransactions } from "../Services/getTransactions";
-import { calculateTotal } from "../Services/calculateTotal";
 import { ITransactionsStore } from "../interfaces/ITransactionStore";
 import api from "../api";
 

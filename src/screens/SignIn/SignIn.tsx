@@ -1,21 +1,11 @@
-import {
-  View,
-  Text,
-  ImageBackground,
-  TextInput,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  Platform,
-  ActivityIndicator,
-} from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import { View, Text, TouchableOpacity, ActivityIndicator } from "react-native";
 import { styles } from "./styles";
 import React, { useEffect, useState } from "react";
 import Background from "../../components/Background/Background";
 import CommonInput from "../../components/CommonInput/CommonInput";
 import { useNavigation } from "@react-navigation/native";
 import { useUserStore } from "../../store/user";
-import { getUser } from "../../Services/getUser";
+import { getUser } from "../../utils/getUser";
 import { colors } from "../../Constants";
 
 const SignIn = () => {
