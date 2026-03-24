@@ -1,10 +1,12 @@
 export interface ITransaction {
-  id: string;
+  id?: string;
   title: string;
-  date: string;
+  date: Date;
   category: string;
+  description: string;
   value: number;
   type: TransactionType;
+  monthReference: Date;
 }
 
 export type TransactionType = "entry" | "expense";

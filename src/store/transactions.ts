@@ -8,27 +8,6 @@ export const useTransactionStore = create<ITransactionsStore>()((set, get) => ({
   totalEntry: 0,
   totalExpenses: 0,
   balance: 0,
-  addTransaction: async ({ id, title, date, category, value, type }) => {
-    const updatedTransactions = [
-      ...get().transactions,
-      { id, title, date, category, value, type },
-    ];
-
-    await saveTransaction(updatedTransactions);
-
-    set(() => {
-      const totalEntry = calculateTotal(updatedTransactions, "entry");
-
-      const totalExpenses = calculateTotal(updatedTransactions, "expense");
-
-      return {
-        transactions: updatedTransactions,
-        totalEntry,
-        totalExpenses,
-        balance: totalEntry - totalExpenses,
-      };
-    });
-  },
   findTransactions: async () => {
     const month = new Date().getMonth() + 1;
     const year = new Date().getFullYear();
@@ -47,29 +26,20 @@ export const useTransactionStore = create<ITransactionsStore>()((set, get) => ({
       };
     });
   },
-  removeAllTransactions: async () => {
-    await AsyncStorage.removeItem("@transactions");
-
-    set({
-      transactions: [],
-      totalEntry: 0,
-      totalExpenses: 0,
-      balance: 0,
+  addTransaction: async (transaction) => {
+    await api.post("/transaction", {
+      ...transaction,
+      userId: 1,
     });
+    get().findTransactions();
+  },
+  editTransaction: async (transaction) => {
+    await api.put("/transactions", transaction);
+    get().findTransactions();
   },
   removeTransaction: async (id) => {
-    const updatedTransactions = get().transactions.filter((t) => t.id !== id);
-    await saveTransaction(updatedTransactions);
+    await api.delete(`/transactions/${id}`);
 
-    const totalEntry = calculateTotal(updatedTransactions, "entry");
-
-    const totalExpenses = calculateTotal(updatedTransactions, "expense");
-
-    set({
-      transactions: updatedTransactions,
-      totalEntry,
-      totalExpenses,
-      balance: totalEntry - totalExpenses,
-    });
+    get().findTransactions();
   },
 }));

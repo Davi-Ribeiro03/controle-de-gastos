@@ -8,7 +8,6 @@ import MainContent from "../../components/MainContent/MainContent";
 import TransactionTypeSelector from "../../components/TransactionTypeSelector/TransactionTypeSelector";
 import Button from "../../components/Button/Button";
 import { ITransaction, TransactionType } from "../../interfaces/ITransactions";
-import { randomUUID } from "expo-crypto";
 import { useTransactionStore } from "../../store/transactions";
 import { Masks } from "react-native-mask-input";
 
@@ -24,10 +23,10 @@ const AddTransaction = () => {
 
   useEffect(() => {
     const showSubscription = Keyboard.addListener("keyboardDidShow", () =>
-      setKeyboardVisible(true)
+      setKeyboardVisible(true),
     );
     const hideSubscription = Keyboard.addListener("keyboardDidHide", () =>
-      setKeyboardVisible(false)
+      setKeyboardVisible(false),
     );
 
     return () => {
@@ -46,7 +45,7 @@ const AddTransaction = () => {
 
   function formatCurrency(value: string) {
     return parseFloat(
-      value.replace("R$", "").replace(/\./g, "").replace(",", ".").trim()
+      value.replace("R$", "").replace(/\./g, "").replace(",", ".").trim(),
     );
   }
 
@@ -65,13 +64,16 @@ const AddTransaction = () => {
       return;
     }
 
+    const formmatedDate = date.split("/").reverse().join("-");
+
     const transaction: ITransaction = {
-      id: randomUUID(),
-      category,
+      category: "OTHERS",
+      description,
       title,
       type,
       value: formatCurrency(value),
-      date,
+      date: new Date(formmatedDate),
+      monthReference: new Date(new Date(formmatedDate).setDate(1)),
     };
 
     addTransaction(transaction);

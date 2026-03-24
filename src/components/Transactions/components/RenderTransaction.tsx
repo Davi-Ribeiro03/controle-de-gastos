@@ -15,7 +15,7 @@ export const renderTransactions = ({ item }: { item: ITransaction }) => {
           </Text>
         </View>
         <View style={styles.dateAndvalue}>
-          <Text style={styles.date}>{item.date}</Text>
+          <Text style={styles.date}>{item.date.toString()}</Text>
           <Text
             style={
               item.type === "entry" ? styles.entryValue : styles.expenseValue
